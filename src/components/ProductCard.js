@@ -1,17 +1,9 @@
-export function ProductCard() {
-    const product = {
-        imageSrc: "images/iphone.png",
-        title: "iPhone XD",
-        spesifikasi: [
-            "Mantep",
-            "Gacor",
-            "Keren",
-        ],
-        price: 1,
-    };
+export function ProductCard({ product, background = "slategray", onPurchase }) {
 
     return (
       <article style={{
+        background,
+        width: "100%",
         border: "1px solid white", 
         borderRadius: "8px", 
         padding: "16px", 
@@ -21,16 +13,33 @@ export function ProductCard() {
         <img 
           src={product.imageSrc}
           alt={product.title}
-          width="128px"
-          height="128px"
+          width={128}
+          height={128}
         />
-        <p>Spesifikasi</p>
+        <p>Spesifikasi :</p>
         <ul style={{ listStyle: "none", padding: 0 }}>
-          <li>{product.spesifikasi[0]}</li>
-          <li>{product.spesifikasi[1]}</li>
-          <li>{product.spesifikasi[2]}</li>
+          {product.spesifikasi.map((spek, index) => (
+            <li key={index}>{spek}</li>
+          ))}
         </ul>
-        <button>Beli (Rp {product.price})</button>
+        <Status stockCount={product.stockCount} />
+        {product.stockCount > 0 && (
+          <button onClick={() => onPurchase(product)}>
+            Beli (Rp {product.price})
+          </button> 
+        )}
       </article>
     );
   }
+
+function Status({ stockCount }) {
+  const notAvailableTemplate = (
+    <p style={{ fontSize: "14px", color: 'lightsalmon' }}>Tidak tersedia</p>
+  );
+
+  const availableTemplate = (
+    <p style={{ fontSize: "14px", color: 'lightgreen' }}>{stockCount} Barang Tersedia</p>
+  );
+
+  return stockCount === 0 ? notAvailableTemplate : availableTemplate;
+}
