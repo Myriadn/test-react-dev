@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { ProductList } from './components/ProductList';
 import { ProductCard } from './components/ProductCard';
-import './App.css';
+import styles from './App.module.css';
 
 function App() {
   const products = [
@@ -45,7 +45,7 @@ function handlePurchase(product) {
 }
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       <ProductList>
         {products.map((product) => (
           <ProductCard 
@@ -59,8 +59,8 @@ function handlePurchase(product) {
     <h2>Produk yang memiliki harga sampai Rp 5000000</h2>
       {products.filter(({ price }) => price < 5000000).map(({ title, price }) => (
         <Fragment key={title}>
-          <hr style={{ borderColor: 'slategray' }} />
-          <p>
+          <hr className={styles.ListDivider} />
+          <p className={styles.ListTitle} >
             {title} dibanderol dengan harga Rp {price}
           </p>
         </Fragment>

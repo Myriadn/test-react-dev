@@ -1,23 +1,17 @@
-export function ProductCard({ product, background = "slategray", onPurchase }) {
+import styles from './ProductCard.module.css';
 
+export function ProductCard({ product, background = "slategray", onPurchase }) {
     return (
-      <article style={{
-        background,
-        width: "100%",
-        border: "1px solid white", 
-        borderRadius: "8px", 
-        padding: "16px", 
-        textAlign: "center", 
-      }}>
+      <article className={styles.Container} style={{ background }}>
         <h2>{product.title}</h2>
-        <img 
-          src={product.imageSrc}
-          alt={product.title}
-          width={128}
-          height={128}
-        />
+          <img
+            src={product.imageSrc} 
+            alt={product.title}
+            width={128}
+            height={128}
+          />
         <p>Spesifikasi :</p>
-        <ul style={{ listStyle: "none", padding: 0 }}>
+        <ul className={styles.Spesifikasi}>
           {product.spesifikasi.map((spek, index) => (
             <li key={index}>{spek}</li>
           ))}
@@ -34,11 +28,11 @@ export function ProductCard({ product, background = "slategray", onPurchase }) {
 
 function Status({ stockCount }) {
   const notAvailableTemplate = (
-    <p style={{ fontSize: "14px", color: 'lightsalmon' }}>Tidak tersedia</p>
+    <p className={styles.NotAvailableStatus}>Tidak tersedia</p>
   );
 
   const availableTemplate = (
-    <p style={{ fontSize: "14px", color: 'lightgreen' }}>{stockCount} Barang Tersedia</p>
+    <p className={styles.AvailableStatus}>{stockCount} Barang Tersedia</p>
   );
 
   return stockCount === 0 ? notAvailableTemplate : availableTemplate;
